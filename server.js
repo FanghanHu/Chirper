@@ -1,7 +1,9 @@
 const express = require("express");
 const path = require("path");
 const PORT = process.env.PORT || 3001;
+const db = require(path.join(__dirname, './models'));
 const app = express();
+require("dotenv").config();
 
 // Define middleware here
 app.use(express.urlencoded({ extended: true }));
@@ -19,6 +21,11 @@ app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "./client/build/index.html"));
 });
 
-app.listen(PORT, () => {
-  console.log(`🌎 ==> API server now on port ${PORT}!`);
+
+//sync models before active server
+db.sequelize.sync().then(() => {
+  //bind server.
+  app.listen(PORT, () => {
+      console.log("Server is now listening on port: " + PORT);
+  });
 });
