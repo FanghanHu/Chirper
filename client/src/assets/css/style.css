@@ -1,0 +1,15 @@
+form{
+    border: 2px solid black;
+}
+
+.form-group{
+    text-align: center;
+    display: inline-block;
+    
+}
+
+.form-control{
+    text-align: center;
+    display: inline-block;
+    border: 1px solid black;
+}
