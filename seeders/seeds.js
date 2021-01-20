@@ -2,6 +2,9 @@ const db = require("../models");
 
 db.sequelize.sync({force: true}).then(async () => {
 
+    //setting up the app
+    const orderNumber = await db.AppConfig.create({itemName: "next order number", itemValue: 1});
+
     //create user John Doe
     const john = await db.User.create({
         fullName: "John Doe",
@@ -31,7 +34,7 @@ db.sequelize.sync({force: true}).then(async () => {
     };
 
     db.Order.create({
-        orderNumber: "1",
+        orderNumber: "#" + orderNumber.itemValue,
         creatorId: john.id,
         items: [orderItem],
         Payments: [
