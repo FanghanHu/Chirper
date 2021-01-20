@@ -2,7 +2,7 @@ import React from "react";
 import "./style.css"
 
 function Keypad() {
-    return (
+    return  ( 
         <div className="col-3">
             <div className="input-group input-group-lg">
                 <span className="input-group-text" id="inputGroup-sizing-lg"></span>

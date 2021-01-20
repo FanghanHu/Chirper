@@ -9,3 +9,9 @@
     display: inline-block;
     border: 1px solid black;
 }
+
+.container-fluid{
+    text-align: center;
+    padding: 30px;
+    
+}
