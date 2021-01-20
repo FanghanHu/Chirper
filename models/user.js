@@ -29,6 +29,7 @@ module.exports = function(sequelize, DataTypes) {
         accessCode: {
             type: DataTypes.STRING,
             allowNull: true,
+            unique: true,
             validate: {
                 len: {args: [1,160], msg:"access code length must be between 1 and 160 characters."},
             }
