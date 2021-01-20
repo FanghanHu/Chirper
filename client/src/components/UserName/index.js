@@ -5,7 +5,7 @@ import "../../assets/css/style.css";
 function UserName() {
     return (
         <>
-    <div className="container">     
+    <div className="container-fluid">     
         <form id="UserName">
             <div className="form-group">
                 <label for="username"><i className="fas fa-user"></i>Username</label>

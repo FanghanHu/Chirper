@@ -6,7 +6,7 @@ import "../../assets/css/style.css";
 function Password() {
     return(
         <>
-    <div className="container">  
+    <div className="container-fluid">  
         <form id="Password">
             <div className="form-group">
                 <label for="password"><i className="fas fa-lock"></i>Password</label>

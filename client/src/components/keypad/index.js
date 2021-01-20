@@ -16,7 +16,7 @@ function Keypad() {
         })
         .then((res) => console.log(res))
     }
-    
+   
     return (
         <div className="col-3">
             <div className="input-group input-group-lg">
