@@ -1,9 +1,13 @@
 const db = require("../models");
 
-db.sequelize.sync({force: true}).then(async () => {
+async function resetDB() {
+    //reset the database
+    await db.sequelize.query('SET FOREIGN_KEY_CHECKS = 0');
+    await db.sequelize.sync({ force: true });
+    await db.sequelize.query('SET FOREIGN_KEY_CHECKS = 1');
 
     //setting up the app
-    const orderNumber = await db.AppConfig.create({itemName: "next order number", itemValue: 1});
+    const orderNumber = await db.AppConfig.create({ itemName: "next order number", itemValue: 1 });
 
     //create user John Doe
     const john = await db.User.create({
@@ -45,4 +49,6 @@ db.sequelize.sync({force: true}).then(async () => {
     }, {
         include: [db.Payment, "creator"]
     })
-});
+}
+
+resetDB();
