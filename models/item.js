@@ -1,5 +1,3 @@
-const { BelongsTo } = require("sequelize/types");
-
 module.exports = function(sequelize, DataTypes) {
     const Item = sequelize.define("Item", {
         itemName: {
@@ -17,7 +15,7 @@ module.exports = function(sequelize, DataTypes) {
     });
 
     Item.associate = function (models) {
-        Item.BelongsToMany(models.Menu, {through: "menuItems"});
+        Item.belongsToMany(models.Menu, {through: "menuItems"});
     };
 
     return Item;

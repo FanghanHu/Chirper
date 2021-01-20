@@ -14,7 +14,7 @@ module.exports = function (sequelize, DataTypes) {
 
     Payment.associate = function (models) {
         Payment.belongsTo(models.Order, {allowNull:false});
-        Payment.hasOne(models.User, {allowNull: false});
+        Payment.hasOne(models.User, {allowNull: false, as: "cashier"});
     };
 
     return Payment;

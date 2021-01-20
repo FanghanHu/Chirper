@@ -16,7 +16,7 @@ module.exports = function (sequelize, DataTypes) {
     });
 
     Order.associate = function (models) {
-        Order.hasOne(models.User, {allowNull: false});
+        Order.hasOne(models.User, {allowNull: false, as: "creator"});
         Order.hasMany(models.Payment);
     };
 
