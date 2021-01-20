@@ -16,7 +16,7 @@ module.exports = function (sequelize, DataTypes) {
     });
 
     Order.associate = function (models) {
-        Order.belongsTo(models.User, {allowNull: false, as: "creator"});
+        Order.belongsTo(models.User, { foreignKey: { allowNull: false }, onDelete: 'RESTRICT', as: "creator"});
         Order.hasMany(models.Payment);
     };
 

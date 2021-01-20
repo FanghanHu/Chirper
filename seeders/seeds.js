@@ -44,6 +44,7 @@ async function resetDB() {
         Payments: [
             {
                 amount: 3.0,
+                cashierId: john.id
             }
         ]
     }, {

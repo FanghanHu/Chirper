@@ -13,8 +13,8 @@ module.exports = function (sequelize, DataTypes) {
     });
 
     Payment.associate = function (models) {
-        Payment.belongsTo(models.Order, {allowNull:false});
-        Payment.belongsTo(models.User, {allowNull: false, as: "cashier"});
+        Payment.belongsTo(models.Order, {foreignKey: { allowNull: false }, onDelete: 'RESTRICT'});
+        Payment.belongsTo(models.User, {foreignKey: { allowNull: false }, onDelete: 'RESTRICT', as: "cashier"});
     };
 
     return Payment;
