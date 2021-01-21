@@ -1,5 +1,9 @@
 const db = require("../models");
 
+function eagarLoadOrder(orderId) {
+    return db.Order.findOne({where: {id: orderId}, include: { all: true, nested: true }});
+}
+
 module.exports = {
     /**
      * creates a new order, client must submit a creatorId.
@@ -77,7 +81,7 @@ module.exports = {
             WHERE id = :orderId;`, {replacements: {orderId, item: JSON.stringify(item)}});
 
             //success, return the whole order object
-            return res.json(await db.Order.findOne({where: {id: orderId}}))
+            return res.json(await eagarLoadOrder(orderId));
         } catch (err) {
             console.error(err);
             res.status(500).json(err.stack);
@@ -106,7 +110,7 @@ module.exports = {
             }
 
             if(!order.items[itemIndex]) {
-                return res.status(400).send("Cannot find item");
+                return res.status(404).send("Cannot find item");
             }
 
             //make a copy of existing item
@@ -127,7 +131,7 @@ module.exports = {
             WHERE id = :orderId;`, {replacements: {orderId, itemIndex, item: JSON.stringify(item)}});
 
             //success, return the whole order object
-            return res.json(await db.Order.findOne({where: {id: orderId}}))
+            return res.json(await eagarLoadOrder(orderId));
         } catch (err) {
             console.error(err);
             res.status(500).json(err.stack);
@@ -135,11 +139,48 @@ module.exports = {
     },
 
     /**
-     * 
+     * add a new payment into an order, also updates the order's status as the payment is received, 
+     * client must provide the orderId, amount and type of the payment, and the serverId
      */
-    addPayment: function (req, res) {
-        
+    addPayment: async function (req, res) {
+        const orderId = req.body.orderId;
+        const amount = parseFloat(req.body.amount);
+        const type = req.body.type;
+        const serverId = req.body.serverId;
+
+        try {
+            const order = await db.Order.findOne({where: {id: orderId}});
+
+            if(!order) {
+                return res.status(404).send("cannot find order");
+            }
+            
+            const server = await db.User.findOne({where: {id: serverId}});
+
+            if(!server) {
+                return res.status(404).send("cannot find server");
+            }
+
+            if(amount <= 0) {
+                return res.status(400).send("invalid amount");
+            }
+
+            if(!type) {
+                return res.status(400).send("missing payment type");
+            }
+
+            await order.createPayment({amount, type, cashierId: server.id});
+
+            const updatedOrder = await eagarLoadOrder(orderId);
+            
+
+            //success, return the whole order object
+            return res.json(await eagarLoadOrder(orderId));
+        } catch (err) {
+            console.error(err);
+            res.status(500).json(err.stack);
+        }
     }
 
-    //TODO: remove payment
+    //TODO: void payment
 }

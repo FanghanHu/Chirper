@@ -6,5 +6,6 @@ const orderController = require("../../controllers/orderController");
 router.route("/create").post(orderController.createOrder);
 router.route("/orderItem").post(orderController.orderItem);
 router.route("/voidItem").post(orderController.voidItem);
+router.route("/addPayment").post(orderController.addPayment);
 
 module.exports = router;
