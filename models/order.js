@@ -16,6 +16,7 @@ module.exports = function (sequelize, DataTypes) {
         Order.hasMany(models.Payment);
         Order.hasMany(models.OrderItem);
         Order.belongsToMany(models.Log, {onDelete: 'CASCADE ', foreignKey: {name:"orderId", allowNull: false }, through: "orderLogs"});
+        Order.belongsToMany(models.Customer, {through: "customerOrders"});
     };
 
     return Order;

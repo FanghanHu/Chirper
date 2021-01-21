@@ -18,6 +18,16 @@ async function resetDB() {
         password: "password"
     });
 
+    const steve = await db.Customer.create({
+        fullName: "Steve Lee",
+        phone: "123-456-7890",
+        address: "12345 someStree st",
+        city: "someCity",
+        state: "someState",
+        zip: "12345",
+        note: "He runs"
+    });
+
     const mainMenu = await db.Menu.create({
         menuName: "Main Menu",
         Items: [
@@ -43,6 +53,8 @@ async function resetDB() {
         tax: 0.0825,
         serverId: john.id
     });
+
+    order.addCustomer(steve);
 
     await order.createPayment({
         amount: 5,

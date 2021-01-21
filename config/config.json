@@ -1,6 +1,7 @@
 {
   "development": {
     "use_env_variable": "DB_URL",
+    "logging": false,
     "dialect": "mysql"
   },
   "test": {
@@ -9,6 +10,7 @@
   },
   "production": {
     "use_env_variable": "DB_URL",
+    "logging": false,
     "dialect": "mysql"
   }
 }
