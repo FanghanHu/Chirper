@@ -7,7 +7,7 @@ async function resetDB() {
     await db.sequelize.query('SET FOREIGN_KEY_CHECKS = 1');
 
     //setting up the app
-    const orderNumber = await db.AppConfig.create({ itemName: "next order number", itemValue: 1 });
+    const orderNumber = await db.AppConfig.create({ itemName: "next order number", itemValue: 2 });
 
     //create user John Doe
     const john = await db.User.create({
@@ -23,33 +23,32 @@ async function resetDB() {
         Items: [
             {
                 itemName: "Big Mac",
-                price: 3.25
+                price: 3.25,
+                tax: 0.0825
             }
         ]
     }, {
         include: [db.Item]
     });
 
-    const orderItem = {
-        ...mainMenu.Items[0].dataValues,
-        serverId: john.id,
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString()
-    };
 
-    db.Order.create({
-        orderNumber: "#" + orderNumber.itemValue,
-        creatorId: john.id,
-        items: [orderItem],
-        Payments: [
-            {
-                amount: 3.0,
-                cashierId: john.id
-            }
-        ]
-    }, {
-        include: [db.Payment, "creator"]
-    })
+    const order = await db.Order.create({
+        orderNumber: "#1",
+        creatorId: john.id
+    });
+
+    await order.createOrderItem({
+        itemName:"cheese burger",
+        price: 5.25,
+        tax: 0.0825,
+        serverId: john.id
+    });
+
+    await order.createPayment({
+        amount: 5,
+        type: "CASH",
+        cashierId: john.id
+    });
 }
 
 resetDB();

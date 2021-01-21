@@ -11,6 +11,10 @@ module.exports = function(sequelize, DataTypes) {
         price: {
             type: DataTypes.FLOAT,
             defaultValue: 0
+        },
+        tax: {
+            type: DataTypes.FLOAT,
+            defaultValue: 0
         }
     });
 

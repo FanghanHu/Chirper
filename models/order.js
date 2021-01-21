@@ -8,16 +8,14 @@ module.exports = function (sequelize, DataTypes) {
             type: DataTypes.STRING,
             allowNull: false,
             defaultValue: "OPEN"
-        },
-        items: {
-            type: DataTypes.JSON,
-            defaultValue: []
         }
     });
 
     Order.associate = function (models) {
         Order.belongsTo(models.User, { foreignKey: { allowNull: false }, onDelete: 'RESTRICT', as: "creator"});
         Order.hasMany(models.Payment);
+        Order.hasMany(models.OrderItem);
+        Order.belongsToMany(models.Log, {onDelete: 'CASCADE ', foreignKey: {name:"orderId", allowNull: false }, through: "orderLogs"});
     };
 
     return Order;

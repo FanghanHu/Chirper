@@ -4,7 +4,52 @@ function eagarLoadOrder(orderId) {
     return db.Order.findOne({where: {id: orderId}, include: { all: true, nested: true }});
 }
 
+/**
+ * calculate the order total and check against payment amount, then update status accordingly
+ * @param {Number} orderId 
+ */
+async function updateOrderStatus(orderId) {
+    const order = await eagarLoadOrder(orderId);
+
+    let billTotal = 0;
+    let paidAmount = 0;
+
+    order.OrderItems.forEach(orderItem => {
+        if(orderItem.status === "OPEN") {
+            billTotal += orderItem.price * (1 + orderItem.tax);
+        }
+    });
+    order.Payments.forEach(payment => {
+        if(payment.status === "OPEN") {
+            paidAmount += payment.amount;
+        }
+    });
+
+    if(billTotal > paidAmount) {
+        await order.update({status: "OPEN"});
+    } else {
+        await order.update({status: "SETTLED"});
+    }
+}
+
 module.exports = {
+    getOrder: async function (req, res) {
+        const orderId = req.params.orderId;
+
+        const order = await db.Order.findOne({where: {id: orderId}});
+
+        if(!order) {
+            return res.status(404).send("cannot find order");
+        }
+        
+        return res.json(order);
+    },
+
+    getAllOrders: async function (req, res) {
+        return res.json(await db.Order.findAll({}));
+    },
+
+
     /**
      * creates a new order, client must submit a creatorId.
      */
@@ -53,10 +98,6 @@ module.exports = {
         const serverId = req.body.serverId;
 
         item.serverId = serverId;
-        item.createdAt = new Date().toISOString();
-        item.updatedAt = new Date().toISOString();
-        item.status = "OPEN";
-        item.actions = [];
 
         try {
             const order = await db.Order.findOne({where: {id: orderId}});
@@ -75,10 +116,15 @@ module.exports = {
                 return res.status(400).send("invalid item");
             }
 
-            //append the item to the items array without reading from the database again
-            await db.sequelize.query(`UPDATE orders 
-            SET items = JSON_ARRAY_APPEND(items, "$", CAST(:item AS JSON))
-            WHERE id = :orderId;`, {replacements: {orderId, item: JSON.stringify(item)}});
+            await order.createOrderItem({
+                serverId,
+                itemName: item.itemName,
+                price: item.price,
+                tax: item.tax,
+                ItemId: item.id
+            });
+
+            await updateOrderStatus(orderId);
 
             //success, return the whole order object
             return res.json(await eagarLoadOrder(orderId));
@@ -92,47 +138,43 @@ module.exports = {
      * mark an item as voided, client must provide the index of item to remove, and also order id, and server id.
      */
     voidItem: async function (req, res) {
-        const orderId = req.body.orderId;
-        const itemIndex = req.body.itemIndex;
+        const orderItemId = req.body.orderItemId;
         const serverId = req.body.serverId;
 
-        try {
-            const order = await db.Order.findOne({where: {id: orderId}});
+        const t = await db.sequelize.transaction();
 
-            if(!order) {
-                return res.status(404).send("cannot find order");
-            }
-            
+        try {
             const server = await db.User.findOne({where: {id: serverId}});
 
             if(!server) {
                 return res.status(404).send("cannot find server");
             }
 
-            if(!order.items[itemIndex]) {
-                return res.status(404).send("Cannot find item");
-            }
-
-            //make a copy of existing item
-            const item = {...order.items[itemIndex]};
-
-            //add void information into the copy of item
-            item.status = "VOIDED";
-            if(!item.actions) item.actions = [];
-            item.actions.push({
-                timestamp: new Date().toISOString(),
-                serverId: serverId,
-                type: "VOID"
+            const orderItem = await db.OrderItem.findOne({
+                where: {id: orderItemId},
+                lock: true, 
+                transaction: t
             });
 
-            //replace the order's item with our modified item
-            await db.sequelize.query(`UPDATE orders 
-            SET items = JSON_SET(items, "$[:itemIndex]", CAST(:item AS JSON))
-            WHERE id = :orderId;`, {replacements: {orderId, itemIndex, item: JSON.stringify(item)}});
+            if(!orderItem) {
+                t.commit();
+                return res.status(404).send("cannot find orderItem");
+            }
 
-            //success, return the whole order object
-            return res.json(await eagarLoadOrder(orderId));
+            //change the status, using transaction to ensure changes and logs sync
+            await orderItem.update({status: "VOIDED"}, {transaction: t});
+            //log the action
+            await orderItem.createLog({
+                action: "VOID",
+                UserId: serverId
+            }, {transaction: t});
+
+            await t.commit();
+            await updateOrderStatus(orderItem.OrderId);
+
+            res.json( await db.OrderItem.findOne({ where: {id: orderItemId}}));
         } catch (err) {
+            t.rollback();
             console.error(err);
             res.status(500).json(err.stack);
         }
@@ -171,8 +213,7 @@ module.exports = {
 
             await order.createPayment({amount, type, cashierId: server.id});
 
-            const updatedOrder = await eagarLoadOrder(orderId);
-            
+            await updateOrderStatus(orderId);
 
             //success, return the whole order object
             return res.json(await eagarLoadOrder(orderId));
