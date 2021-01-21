@@ -10,5 +10,11 @@ module.exports = function (sequelize, DataTypes) {
         }
     });
 
+    TableArea.associate = function (models) {
+        //link to the user that made this action
+        TableArea.hasMany(models.Table);
+    };
+
+
     return TableArea;
 };
