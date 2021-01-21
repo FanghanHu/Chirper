@@ -33,8 +33,8 @@ async function resetDB() {
     const orderItem = {
         ...mainMenu.Items[0].dataValues,
         serverId: john.id,
-        createdAt: Date.now(),
-        updatedAt: Date.now()
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString()
     };
 
     db.Order.create({
