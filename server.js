@@ -24,8 +24,6 @@ app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "./client/build/index.html"));
 });
 
-
-
 //sync models before active server
 db.sequelize.sync({force: false}).then(() => {
   //bind server.

@@ -77,3 +77,10 @@ pre {
   background: honeydew!important;
 }
 
+.col-3{
+  padding: 25px 0 0 0;
+  top: 25px;
+  position: relative; 
+  left: 480px;
+}
+

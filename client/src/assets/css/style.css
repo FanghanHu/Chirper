@@ -1,17 +1,29 @@
-.form-group{
-    text-align: center;
-    display: inline-block;
-    
+
+.username-form {
+    width: 100%;
+    max-width: 330px;
+    padding: 15px;
+    margin: auto;
+    height: 100%;
 }
 
-.form-control{
-    text-align: center;
-    display: inline-block;
-    border: 1px solid black;
+.password-form {
+    width: 100%;
+    max-width: 330px;
+    padding: 15px;
+    margin: auto;
+    height: 100%;
 }
 
 .container-fluid{
     text-align: center;
-    padding: 30px;
+    padding: 40px;
     
 }
+
+.box1{
+    box-sizing: border-box;
+    border: 5px solid rgb(221, 211, 211);
+}
+
+
