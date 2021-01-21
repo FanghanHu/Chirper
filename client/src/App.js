@@ -1,6 +1,5 @@
 // import React, { Component } from "react";
 import React from "react";
-import logo from "./logo.svg";
 // import "./App.css";
 import Wrapper from "./components/Wrapper";
 
@@ -15,7 +14,7 @@ function App() {
     //     To get started, edit <code>src/App.js</code> and save to reload.
     //   </p>
     // </div>
-    <div>
+    <div className="box1">
       <Wrapper/>
     </div>
   );
