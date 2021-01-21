@@ -51,14 +51,17 @@ module.exports = {
         item.serverId = serverId;
         item.createdAt = new Date().toISOString();
         item.updatedAt = new Date().toISOString();
+        item.status = "OPEN";
+        item.actions = [];
 
         try {
             const order = await db.Order.findOne({where: {id: orderId}});
-            const server = await db.User.findOne({where: {id: serverId}});
 
             if(!order) {
                 return res.status(404).send("cannot find order");
             }
+            
+            const server = await db.User.findOne({where: {id: serverId}});
 
             if(!server) {
                 return res.status(404).send("cannot find server");
@@ -76,23 +79,66 @@ module.exports = {
             //success, return the whole order object
             return res.json(await db.Order.findOne({where: {id: orderId}}))
         } catch (err) {
-            console.log(err);
-            res.status(500).json(e.stack);
+            console.error(err);
+            res.status(500).json(err.stack);
         }
     },
 
     /**
-     * remove an item from an order, client must provide the index of item to remove, and also order id, and server id.
+     * mark an item as voided, client must provide the index of item to remove, and also order id, and server id.
      */
-    removeItem: function (req, res) {
+    voidItem: async function (req, res) {
+        const orderId = req.body.orderId;
+        const itemIndex = req.body.itemIndex;
+        const serverId = req.body.serverId;
 
+        try {
+            const order = await db.Order.findOne({where: {id: orderId}});
+
+            if(!order) {
+                return res.status(404).send("cannot find order");
+            }
+            
+            const server = await db.User.findOne({where: {id: serverId}});
+
+            if(!server) {
+                return res.status(404).send("cannot find server");
+            }
+
+            if(!order.items[itemIndex]) {
+                return res.status(400).send("Cannot find item");
+            }
+
+            //make a copy of existing item
+            const item = {...order.items[itemIndex]};
+
+            //add void information into the copy of item
+            item.status = "VOIDED";
+            if(!item.actions) item.actions = [];
+            item.actions.push({
+                timestamp: new Date().toISOString(),
+                serverId: serverId,
+                type: "VOID"
+            });
+
+            //replace the order's item with our modified item
+            await db.sequelize.query(`UPDATE orders 
+            SET items = JSON_SET(items, "$[:itemIndex]", CAST(:item AS JSON))
+            WHERE id = :orderId;`, {replacements: {orderId, itemIndex, item: JSON.stringify(item)}});
+
+            //success, return the whole order object
+            return res.json(await db.Order.findOne({where: {id: orderId}}))
+        } catch (err) {
+            console.error(err);
+            res.status(500).json(err.stack);
+        }
     },
 
     /**
      * 
      */
     addPayment: function (req, res) {
-
+        
     }
 
     //TODO: remove payment
