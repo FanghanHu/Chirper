@@ -6,6 +6,9 @@ import {BrowserRouter as Router, Route} from "react-router-dom"
 import CustomerInfoForm from "./components/CustomerInfoForm";
 import MainMenu from "./components/MainMenu";
 import OrderPage from "./components/OrderPage";
+import RecallPage from "./components/RecallPage";
+import TableSelection from "./components/TableSelection";
+
 
 function App() {
   return (
@@ -19,6 +22,14 @@ function App() {
 
         <Route path="/customerInfo" exact>
           <CustomerInfoForm/>
+        </Route>
+
+        <Route path="/recall" exact>
+          <RecallPage/>
+        </Route>  
+
+        <Route path="/table" exact>
+          <TableSelection/>
         </Route>
         
         <Route path="/mainMenu" exact>
