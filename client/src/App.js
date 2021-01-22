@@ -5,12 +5,12 @@ import Wrapper from "./components/Wrapper";
 import {BrowserRouter as Router, Route} from "react-router-dom"
 import CustomerInfoForm from "./components/CustomerInfoForm";
 import MainMenu from "./components/MainMenu";
+import OrderPage from "./components/OrderPage";
 
 function App() {
   return (
     <>
       <Router>
-
         <Route path="/" exact>
           <div className="box1">
             <Wrapper/>
@@ -24,7 +24,10 @@ function App() {
         <Route path="/mainMenu" exact>
           <MainMenu />
         </Route>
-        
+
+        <Route path="/orderpage" exact>
+          <OrderPage />
+        </Route>
       </Router>
     </>
   );
