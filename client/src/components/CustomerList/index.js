@@ -4,7 +4,7 @@ import InputWithIcon from "../InputWithIcon";
 class CustomerList extends Component {
     render() {
         return (
-            <ul className="list-unstyled">
+            <ul className="list-unstyled text-center">
                 {
                     this.props.customers.map(customer => {
                         const text = `${customer.fullName} - ${customer.phone}`
@@ -12,7 +12,7 @@ class CustomerList extends Component {
                         {
                             return (
                                 <li key={customer.id}>
-                                    <button className={"btn " + (this.props.selectedCustomer && (this.props.selectedCustomer.id===customer.id)?"btn-success":"btn-light")}  onClick={() => {this.props.selectCustomer(customer);}}>
+                                    <button className={"btn m-1 " + (this.props.selectedCustomer && (this.props.selectedCustomer.id===customer.id)?"btn-success":"btn-light")}  onClick={() => {this.props.selectCustomer(customer);}}>
                                         {text}
                                     </button>
                                 </li>
