@@ -1,0 +1,17 @@
+.btn-group {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.button {
+    width: 300px;
+    border: solid;
+    border-radius: 12px;
+    padding: 30px;
+    
+}
+.button:hover {
+    background-color: black;
+    color: white;
+}

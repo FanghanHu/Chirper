@@ -1,4 +1,4 @@
-import React, { Component, createRef, useState } from "react";
+import React, { Component } from "react";
 import CustomerList from "../CustomerList";
 import InputWithIcon from "../InputWithIcon";
 import axios from "axios";
@@ -7,7 +7,7 @@ import TextAreaWithIcon from "../TextAreaWithIcon";
 class CustomerInfoForm extends Component {
     constructor() {
         super();
-        this.state = { customers: [] };
+        this.state = { customers: [], fileter: "", selectedCustomer: null};
         this.getAllCustomers();
     }
 
@@ -17,8 +17,15 @@ class CustomerInfoForm extends Component {
         })
     }
 
+    setFilter = (e) => {
+        this.setState({filter: e.target.value});
+    }
+
+    selectCustomer = (customer) => {
+        this.setState({selectedCustomer: customer});
+    }
+
     render() {
-        const ref = createRef();
         return (
             <>
                 <div className="d-flex justify-content-center">
@@ -31,11 +38,12 @@ class CustomerInfoForm extends Component {
                                 <div className="card-body">
                                     <InputWithIcon
                                         label={<i className='fa fa-search' />}
-                                        ref={ref}
-                                        placeholder="search"
-                                        defaultValue=""
+                                        inputProps={{
+                                            placeholder:"search",
+                                            onChange:this.setFilter
+                                        }}
                                     />
-                                    <CustomerList customers={this.state.customers} />
+                                    <CustomerList customers={this.state.customers} filter={this.state.filter} selectCustomer={this.selectCustomer} selectedCustomer={this.state.selectedCustomer}/>
                                 </div>
                             </div>
                         </div>
@@ -45,17 +53,21 @@ class CustomerInfoForm extends Component {
                                     <div className="col-6">
                                         <InputWithIcon
                                             label={<i className='fa fa-user' />}
-                                            ref={ref}
-                                            placeholder="FullName"
-                                            defaultValue=""
+                                            inputProps={{
+                                                placeholder:"Name",
+                                                value: this.state.selectedCustomer?this.state.selectedCustomer.fullName:"",
+                                                onChange: (e) => {this.setState({selectedCustomer: {...this.state.selectedCustomer, fullName: e.target.value}})}
+                                            }}
                                         />
                                     </div>
                                     <div className="col-6">
                                         <InputWithIcon
                                             label={<i className='fa fa-phone' />}
-                                            ref={ref}
-                                            placeholder="Phone Number"
-                                            defaultValue=""
+                                            inputProps={{
+                                                placeholder:"Phone Number",
+                                                value: this.state.selectedCustomer?this.state.selectedCustomer.phone:"",
+                                                onChange: (e) => {this.setState({selectedCustomer: {...this.state.selectedCustomer, phone: e.target.value}})}
+                                            }}
                                         />
                                     </div>
                                 </div>
@@ -63,9 +75,11 @@ class CustomerInfoForm extends Component {
                                     <div className="col-12">
                                         <InputWithIcon
                                             label={<i className='fa fa-home' />}
-                                            ref={ref}
-                                            placeholder="Address"
-                                            defaultValue=""
+                                            inputProps={{
+                                                placeholder:"Address",
+                                                value: this.state.selectedCustomer?this.state.selectedCustomer.address:"",
+                                                onChange: (e) => {this.setState({selectedCustomer: {...this.state.selectedCustomer, address: e.target.value}})}
+                                            }}
                                         />
                                     </div>
                                 </div>
@@ -73,34 +87,39 @@ class CustomerInfoForm extends Component {
                                     <div className="col-4">
                                         <InputWithIcon
                                             label={<i className='fas fa-city' />}
-                                            ref={ref}
-                                            placeholder="City"
-                                            defaultValue=""
+                                            inputProps={{
+                                                placeholder:"City",
+                                                value: this.state.selectedCustomer?this.state.selectedCustomer.city:"",
+                                                onChange: (e) => {this.setState({selectedCustomer: {...this.state.selectedCustomer, city: e.target.value}})}
+                                            }}
                                         />
                                     </div>
                                     <div className="col-4">
                                         <InputWithIcon
                                             label={<i className='fas fa-city' />}
-                                            ref={ref}
-                                            placeholder="State"
-                                            defaultValue=""
+                                            inputProps={{
+                                                placeholder:"State",
+                                                value: this.state.selectedCustomer?this.state.selectedCustomer.state:"",
+                                                onChange: (e) => {this.setState({selectedCustomer: {...this.state.selectedCustomer, state: e.target.value}})}
+                                            }}
                                         />
                                     </div>
                                     <div className="col-4">
                                         <InputWithIcon
                                             label={<i className='fas fa-city' />}
-                                            ref={ref}
-                                            placeholder="Zip"
-                                            defaultValue=""
+                                            inputProps={{
+                                                placeholder:"Zip",
+                                                value: this.state.selectedCustomer?this.state.selectedCustomer.zip:"",
+                                                onChange: (e) => {this.setState({selectedCustomer: {...this.state.selectedCustomer, zip: e.target.value}})}
+                                            }}
                                         />
                                     </div>
                                 </div>
                                 <TextAreaWithIcon
                                     label={<><i className='fas fa-book' /> <span>Notes:</span></>}
-                                    ref={ref}
-                                    placeholder=""
-                                    defaultValue=""
-                                    rows={5}
+                                    inputProps={{
+                                        rows:5
+                                    }}
                                 />
                             </div>
                             <div className="p-5">

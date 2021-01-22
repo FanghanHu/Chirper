@@ -8,7 +8,7 @@ class TextAreaWithIcon extends Component {
                     {this.props.label}
                 </div>
                 <div className="card-body p-0">
-                    <textarea type="text" className="form-control border-0" rows={this.props.rows} ref={this.props.ref} placeholder={this.props.placeholder} defaultValue={this.props.defaultValue}/>
+                    <textarea type="text" className="form-control border-0" {...this.props.inputProps}/>
                 </div>
             </div>
         );
