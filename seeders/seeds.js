@@ -28,6 +28,16 @@ async function resetDB() {
         note: "He runs"
     });
 
+    await db.Customer.create({
+        fullName: "Jason Smith",
+        phone: "123-456-7890",
+        address: "22432 someStree st",
+        city: "someCity",
+        state: "someState",
+        zip: "54211",
+        note: "Hates rice"
+    });
+
     const mainMenu = await db.Menu.create({
         menuName: "Main Menu",
         Items: [
