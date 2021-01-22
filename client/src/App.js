@@ -4,6 +4,8 @@ import React from "react";
 import Wrapper from "./components/Wrapper";
 import {BrowserRouter as Router, Route} from "react-router-dom"
 import CustomerInfoForm from "./components/CustomerInfoForm";
+import RecallPage from "./components/RecallPage";
+import TableSelection from "./components/TableSelection";
 
 
 function App() {
@@ -19,6 +21,14 @@ function App() {
 
         <Route path="/customerInfo" exact>
           <CustomerInfoForm/>
+        </Route>
+
+        <Route path="/recall" exact>
+          <RecallPage/>
+        </Route>  
+
+        <Route path="/table" exact>
+          <TableSelection/>
         </Route>
         
       </Router>

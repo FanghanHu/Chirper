@@ -4,10 +4,15 @@ import React from "react";
 function RecallPage() {
     return (
         <>
+    <div className="card m-5">
+        <div className="card-header">
+            Orders
+        </div>
+        <div className="card-body">
         <div className="order-form" style={{textAlign: "right"}}>
             <label for="order">Order #</label>
             <input type="text" className="order" id="order#"></input>
-            <button className="btn-lg btn-success" type="go">Go</button>
+            <button className="btn-lg btn-success" type="go" style={{position: "relative", left:"17px"}}>Go</button>
         </div>
             <table className="table">
                 <thead>
@@ -42,7 +47,9 @@ function RecallPage() {
             <button type="button" className="btn btn-success btn-lg" style={{position: "relative" ,right: "25px" }}>Open</button>
             <button type="button" className="btn btn-danger btn-lg" style={{position: "relative" ,left: "25px"}}>Exit</button>
             </div>
-        </>
+        </div>
+    </div>
+    </>
     )
 }
 
