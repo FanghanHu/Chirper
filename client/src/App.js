@@ -2,6 +2,8 @@
 import React from "react";
 // import "./App.css";
 import Wrapper from "./components/Wrapper";
+import {BrowserRouter as Router, Route} from "react-router-dom"
+import CustomerInfoForm from "./components/CustomerInfoForm";
 
 function App() {
   return (
@@ -14,9 +16,18 @@ function App() {
     //     To get started, edit <code>src/App.js</code> and save to reload.
     //   </p>
     // </div>
-    <div className="box1">
-      <Wrapper/>
-    </div>
+    <>
+      <Router>
+        <Route path="/" exact>
+          <div className="box1">
+            <Wrapper/>
+            </div>
+        </Route>
+        <Route path="/customerInfo" exact>
+          <CustomerInfoForm/>
+        </Route>
+      </Router>
+    </>
   );
 }
 
