@@ -4,14 +4,14 @@
     left: 50%;
     transform: translate(-50%, -50%);
 }
-.btn {
+.button {
     width: 300px;
     border: solid;
     border-radius: 12px;
     padding: 30px;
     
 }
-.btn:hover {
+.button:hover {
     background-color: black;
     color: white;
 }

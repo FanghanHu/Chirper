@@ -4,6 +4,7 @@ import React from "react";
 import Wrapper from "./components/Wrapper";
 import {BrowserRouter as Router, Route} from "react-router-dom"
 import CustomerInfoForm from "./components/CustomerInfoForm";
+import MainMenu from "./components/MainMenu";
 
 function App() {
   return (
@@ -18,6 +19,10 @@ function App() {
 
         <Route path="/customerInfo" exact>
           <CustomerInfoForm/>
+        </Route>
+        
+        <Route path="/mainMenu" exact>
+          <MainMenu />
         </Route>
         
       </Router>
