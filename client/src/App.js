@@ -3,6 +3,7 @@ import React from "react";
 // import "./App.css";
 import Wrapper from "./components/Wrapper";
 
+
 function App() {
   return (
     // <div className="App">
@@ -14,9 +15,11 @@ function App() {
     //     To get started, edit <code>src/App.js</code> and save to reload.
     //   </p>
     // </div>
+    <>
     <div className="box1">
       <Wrapper/>
     </div>
+    </>
   );
 }
 
