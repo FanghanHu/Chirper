@@ -9,14 +9,17 @@ function App() {
   return (
     <>
       <Router>
+
         <Route path="/" exact>
           <div className="box1">
             <Wrapper/>
             </div>
         </Route>
+
         <Route path="/customerInfo" exact>
           <CustomerInfoForm/>
         </Route>
+        
       </Router>
     </>
   );
