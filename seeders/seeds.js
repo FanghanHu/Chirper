@@ -41,6 +41,17 @@ async function resetDB() {
         include: [db.Item]
     });
 
+    const tableArea = await db.TableArea.create({
+        areaName: "Main Area"
+    });
+
+    const table = await db.Table.create({
+        tableName: "T1",
+        x: 0,
+        y: 0,
+        TableAreaId: tableArea.id
+    });
+
 
     const order = await db.Order.create({
         orderNumber: "#1",
@@ -55,6 +66,8 @@ async function resetDB() {
     });
 
     order.addCustomer(steve);
+
+    table.addOrder(order);
 
     await order.createPayment({
         amount: 5,
