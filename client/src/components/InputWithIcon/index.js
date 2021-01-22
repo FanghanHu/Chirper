@@ -7,7 +7,7 @@ class InputWithIcon extends Component {
                 <div className="input-group-prepend">
                     <span className="input-group-text" id="basic-addon1">{this.props.label}</span>
                 </div>
-                <input type="text" className="form-control" ref={this.props.ref} placeholder={this.props.placeholder} defaultValue={this.props.defaultValue}/>
+                <input type="text" className="form-control" {...this.props.inputProps}/>
             </div>
         );
     }
