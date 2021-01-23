@@ -1,7 +1,4 @@
 import React from "react";
-import "../../assets/css/style.css";
-
-
 
 function Password() {
     return(
@@ -15,11 +12,6 @@ function Password() {
         </form>
         </>
     )
-
-
-
-
-
 }
 
 export default Password;

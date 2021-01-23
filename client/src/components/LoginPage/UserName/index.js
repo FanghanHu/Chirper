@@ -1,5 +1,4 @@
 import React from "react";
-import "../../assets/css/style.css";
 
 
 function UserName() {
@@ -13,14 +12,6 @@ function UserName() {
         </form>
         </>
     )
-
-
-
-
-
-
-
-
 }
 
 export default UserName;
