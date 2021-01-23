@@ -31,5 +31,17 @@ module.exports = {
         }
 
         return res.json(customer);
+    },
+ /**crate new customer */
+    addCustomer: async function (req, res) {
+        const customer = req.body;
+        const result = await db.Customer.create(customer);
+        res.json(result);
+        
+
+
+
     }
+    
+
 }
