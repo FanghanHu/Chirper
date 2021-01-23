@@ -43,12 +43,13 @@ module.exports = {
         const customerId = req.params.customerId;
         const result = await db.Customer.destroy({where: {id: customerId}});
         res.json(result)
-        
-        
-        
-        
-    }
-
-
+                
+    },
+/**customer update */
+    updateCustomer: async function (req, res){
+        const customerId = req.body.customerId;
+        const result = await db.Customer.update({...req.body},{where:{id:customerId}})
+        res.json(result)
+    },
 
 }
