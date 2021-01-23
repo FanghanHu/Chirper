@@ -11,15 +11,17 @@ class OrderPage extends Component {
 
     render() {
         return (
-            <div className="row">
-                <div className="col-2 bg-primary">
-                    a asd asd 
-                </div>
-                <div className="col-7 bg-dark">
-                    casd as dasd 
-                </div>
-                <div className="col-2 bg-success">
-                    d asd as d
+            <div className="container">
+                <div className="row">
+                    <div className="col-3 bg-primary">
+                        1
+                    </div>
+                    <div className="col-6 bg-warning">
+                        2
+                    </div>
+                    <div className="col-3 bg-success">
+                        3
+                    </div>
                 </div>
             </div>
         );
