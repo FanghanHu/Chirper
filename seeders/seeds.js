@@ -42,8 +42,36 @@ async function resetDB() {
         menuName: "Main Menu",
         Items: [
             {
-                itemName: "Big Mac",
+                itemName: "Cheeseburger",
                 price: 3.25,
+                tax: 0.0825
+            },
+            {
+                itemName: "Spicy Chicken Burger",
+                price: 4.00,
+                tax: 0.0825
+            },
+            {
+                itemName: "Bacon Cheeseburger",
+                price: 4.75,
+                tax: 0.0825
+            }
+        ]
+    }, {
+        include: [db.Item]
+    });
+
+    await db.Menu.create({
+        menuName: "Sidebar",
+        Items: [
+            {
+                itemName: "Green Beans",
+                price: 1.25,
+                tax: 0.0825
+            },
+            {
+                itemName: "Mashed Potato",
+                price: 1.75,
                 tax: 0.0825
             }
         ]
