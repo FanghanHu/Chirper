@@ -26,6 +26,7 @@ function Keypad() {
                         name:"accessCode",
                         placeholder:"Access Code",
                         value:accesscode,
+                        type:"password",
                         onChange: e => setAccesscodeState(e.target.value)
                     }}
                 />

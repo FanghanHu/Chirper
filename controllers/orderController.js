@@ -35,8 +35,14 @@ async function updateOrderStatus(orderId) {
 module.exports = {
     getOrder: async function (req, res) {
         const orderId = req.params.orderId;
+        const eagarLoad = req.query.eagarLoad;
 
-        const order = await db.Order.findOne({where: {id: orderId}, include: { all: true, nested: true }});
+        let order = undefined;
+        if(eagarLoad === "true") {
+            order = await eagarLoadOrder(orderId);
+        } else {
+            order = await db.Order.findOne({where: {id: orderId}});
+        }
 
         if(!order) {
             return res.status(404).send("cannot find order");
@@ -46,7 +52,13 @@ module.exports = {
     },
 
     getAllOrders: async function (req, res) {
-        return res.json(await db.Order.findAll({include: { all: true, nested: true }}));
+        const eagarLoad = req.query.eagarLoad;
+
+        if(eagarLoad === "true") {
+            return res.json(await db.Order.findAll({include: { all: true, nested: true }}));
+        } else {
+            return res.json(await db.Order.findAll());
+        }
     },
 
 

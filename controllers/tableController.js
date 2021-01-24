@@ -2,9 +2,9 @@ const db = require("../models");
 
 module.exports = {
     getAll: async function (req, res) {
-        const eagarLoad = req.body.eagarLoad;
+        const eagarLoad = req.query.eagarLoad;
 
-        if(eagarLoad) {
+        if(eagarLoad === "true") {
             res.json(await db.Table.findAll({include: { all: true, nested: true }}));
         } else {
             res.json(await db.Table.findAll());
@@ -16,11 +16,11 @@ module.exports = {
      */
     getById: async function (req, res) {
         const tableId = req.params.tableId;
-        const eagarLoad = req.body.eagarLoad;
+        const eagarLoad = req.query.eagarLoad;
 
         let table = undefined;
         
-        if(eagarLoad) {
+        if(eagarLoad === "true") {
             table = await db.Table.findOne({where: {id: tableId}, include: { all: true, nested: true }});
         } else {
             table = await db.Table.findOne({where: {id: tableId}});
@@ -35,9 +35,9 @@ module.exports = {
         return res.json(table); 
     },
     getAllAreas: async function (req, res) {
-        const eagarLoad = req.body.eagarLoad;
+        const eagarLoad = req.query.eagarLoad;
 
-        if(eagarLoad) {
+        if(eagarLoad === "true") {
             res.json(await db.TableArea.findAll({include: { all: true, nested: true }}));
         } else {
             res.json(await db.TableArea.findAll());
@@ -49,11 +49,11 @@ module.exports = {
      */
     getAreaById: async function (req, res) {
         const tableId = req.params.areaId;
-        const eagarLoad = req.body.eagarLoad;
+        const eagarLoad = req.query.eagarLoad;
 
         let tableArea = undefined;
         
-        if(eagarLoad) {
+        if(eagarLoad === "true") {
             tableArea = await db.TableArea.findOne({where: {id: tableId}, include: { all: true, nested: true }});
         } else {
             tableArea = await db.TableArea.findOne({where: {id: tableId}});
