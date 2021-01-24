@@ -61,9 +61,9 @@ class ReceiptPreview extends Component {
                     <span className="text-muted float-right">{order.creator?order.creator.fullName:""}</span>
                     <hr/>
                     <ul className="list-unstyled mx-1">
-                        {order.OrderItems.map(orderItem => {
+                        {order.OrderItems.map((orderItem, index) => {
                             return (
-                                <li className="h5">{orderItem.itemName}<span className="float-right">{orderItem.price}</span></li>
+                                <li className="h5" key={index}>{orderItem.itemName}<span className="float-right">{orderItem.price}</span></li>
                             );
                         })}
                     </ul>
