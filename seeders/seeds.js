@@ -57,8 +57,15 @@ async function resetDB() {
 
     const table = await db.Table.create({
         tableName: "T1",
-        x: 0,
-        y: 0,
+        x: 25,
+        y: 25,
+        TableAreaId: tableArea.id
+    });
+
+    await db.Table.create({
+        tableName: "T2",
+        x: 100,
+        y: 25,
         TableAreaId: tableArea.id
     });
 

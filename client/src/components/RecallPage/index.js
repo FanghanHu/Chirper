@@ -43,11 +43,11 @@ function RecallPage() {
                     </tr>
                 </tbody>
             </table>
-            <div className="container text-right"> 
-            <button type="button" className="btn btn-success btn-lg" style={{position: "relative" ,right: "25px" }}>Open</button>
-            <button type="button" className="btn btn-danger btn-lg" style={{position: "relative" ,left: "25px"}}>Exit</button>
-            </div>
         </div>
+    </div>
+    <div className="container text-right"> 
+        <button type="button" className="btn btn-success btn-lg" style={{position: "relative" ,right: "25px" }}>Open</button>
+        <button type="button" className="btn btn-danger btn-lg" style={{position: "relative" ,left: "25px"}}>Exit</button>
     </div>
     </>
     )
