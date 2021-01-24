@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from "axios";
 
 class OrderPage extends Component {
     constructor() {
@@ -16,7 +17,6 @@ class OrderPage extends Component {
     }
 
     loadMenu = async (menuName) => {
-        //TODO:
     }
 
     render() {
