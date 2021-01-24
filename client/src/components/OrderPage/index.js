@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import ReceiptPreview from '../ReceiptPreview';
 
 class OrderPage extends Component {
     constructor() {
@@ -83,8 +84,9 @@ class OrderPage extends Component {
 
     render() {
         return (
-            <div className="container-fulid h-100">
-                <div className="row w-75 h-75 mx-auto my-5">
+            <div className="container-fulid h-100 pt-5">
+                <div></div>
+                <div className="row w-75 h-75 mx-auto">
                     <div className="col-3">
                         <div className="card h-100">
                             <div className="card-body bg-light">
@@ -108,7 +110,8 @@ class OrderPage extends Component {
                         </div>
                     </div>
                     <div className="col-3">
-                            <div className="d-flex justify-content-around flex-wrap">
+                            <ReceiptPreview order={this.state.order} />
+                            <div className="d-flex justify-content-around flex-wrap mt-5">
                                 <button className="btn btn-success m-1" style={{width:"8em"}} onClick={this.saveOrder}>Place Order</button>
                                 <button className="btn btn-primary m-1" style={{width:"8em"}}>Payment</button>
                                 <button className="btn btn-danger m-1" style={{width:"8em"}}>Exit</button>
