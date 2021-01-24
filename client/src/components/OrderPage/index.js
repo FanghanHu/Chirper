@@ -7,16 +7,24 @@ class OrderPage extends Component {
         this.state = {
             order: null,
             server: null,
-            sideBar: [],
-            mainMenu: []
+            menus: [{Items: []},{Items: []}]
         }
+
+        this.loadMenus();
     }
 
     orderItem = async (item) => {
         //TODO:
     }
-
-    loadMenu = async (menuName) => {
+    
+    loadMenus = async () => {
+        let result = await axios.get("/api/menu/getAll/", {
+            params: {
+                eagarLoad: "true"
+            }
+        });
+        console.log(result.data);
+        this.setState({menus: result.data});
     }
 
     render() {
@@ -26,9 +34,9 @@ class OrderPage extends Component {
                     <div className="col-3">
                         <div className="card h-100">
                             <div className="card-body bg-light">
-                                {this.state.sideBar.map(button => {
+                                {this.state.menus[1].Items.map(item => {
                                     return (
-                                        <button className="btn btn-primary" onClick={() => { this.orderItem(button.item) }}>{button.item.ItemName}</button>
+                                        <button key={item.id} className="btn btn-primary m-1" onClick={() => { this.orderItem(item) }}>{item.itemName}</button>
                                     );
                                 })}
                             </div>
@@ -36,10 +44,10 @@ class OrderPage extends Component {
                     </div>
                     <div className="col-6">
                         <div className="card h-100">
-                            <div className="card-body  bg-light">
-                                {this.state.mainMenu.map(button => {
+                            <div className="card-body bg-light">
+                                {this.state.menus[0].Items.map(item => {
                                     return (
-                                        <button className="btn btn-primary" onClick={() => { this.orderItem(button.item) }}>{button.item.ItemName}</button>
+                                        <button key={item.id} className="btn btn-primary m-1" onClick={() => { this.orderItem(item) }}>{item.itemName}</button>
                                     );
                                 })}
                             </div>
