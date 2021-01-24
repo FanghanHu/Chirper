@@ -23,7 +23,6 @@ class OrderPage extends Component {
                 eagarLoad: "true"
             }
         });
-        console.log(result.data);
         this.setState({menus: result.data});
     }
 
