@@ -9,15 +9,20 @@ import ReceiptPreview from '../ReceiptPreview';
 
 
 export default function(props) {
-    const history = useHistory();
     const [menus, setMenus] = useState([{Items: []},{Items: []}]);
     const order = useOrder();
     const setOrder = useSetOrder();
     const table = useTable();
     const setTable = useSetTable();
-    const user = useUser();
     const customer = useCustomer();
     const setCustomer = useSetCustomer();
+
+    //check if user is logged in
+    const user = useUser();
+    const history = useHistory();
+    if(!user) {
+        history.push('/');
+    }
 
     //load the menus
     const loadMenus = async function() {
@@ -74,13 +79,16 @@ export default function(props) {
 
         //create default order object if none exist
         if(!order) {
-            console.log(table);
-            setOrder({
-                creatorId: user.id,
-                Tables:table?[table]:[],
-                Customers:customer?[customer]:[],
-                OrderItems:[]
-            });
+            if(!user) {
+                history.push('/');
+            } else {
+                setOrder({
+                    creatorId: user.id,
+                    Tables:table?[table]:[],
+                    Customers:customer?[customer]:[],
+                    OrderItems:[]
+                });
+            }
         }
     });
 

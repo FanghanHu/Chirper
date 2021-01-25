@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useSetTable, useTable } from "../../Contexts/table-context";
 import {useHistory} from 'react-router-dom';
+import { useUser } from "../../Contexts/user-context";
 
 function TableSelection() {
 
@@ -13,7 +14,13 @@ function TableSelection() {
 
     const setSelectedTable = useSetTable();
     const selectedTable = useTable();
+
+    //check if user is logged in
+    const user = useUser();
     const history = useHistory();
+    if(!user) {
+        history.push('/');
+    }
 
     return (
         <>

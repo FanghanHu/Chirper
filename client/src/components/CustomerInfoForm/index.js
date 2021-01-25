@@ -4,17 +4,45 @@ import axios from "axios";
 import CustomerList from "../CustomerList";
 import InputWithIcon from "../InputWithIcon";
 import TextAreaWithIcon from "../TextAreaWithIcon";
+import {useHistory} from "react-router-dom";
+import {useUser} from "../../Contexts/user-context";
 
 export default function CustomerInfoForm() {
     const [filter, setFilter] = useState("");
     const [customers, setCustomers] = useState([]);
     const customer = useCustomer();
     const setCustomer = useSetCustomer();
+    
+    //check if user is logged in
+    const user = useUser();
+    const history = useHistory();
+    if(!user) {
+        history.push('/');
+    }
 
-    const getAllCustomers = async function () {
+    const getAllCustomers = function () {
         axios.get("/api/customer/getAll/").then(res => {
             setCustomers(res.data);
         })
+    }
+
+    const deleteCustomer = function(customer) {
+        axios.delete('/api/customer/delete/' + customer.id).then(res => {
+            setCustomer(null);
+            getAllCustomers();
+        })
+    }
+
+    const goToOrder = async function() {
+        if(customer && customer.id) {
+            const updateRes = await axios.post("/api/customer/update/", {...customer, id: undefined, customerId: customer.id});
+            await setCustomer(updateRes.data);
+            history.push('/orderPage');
+        } else {
+            const createRes = await axios.post("/api/customer/add/", customer);
+            await setCustomer(createRes.data);
+            history.push('/orderPage');
+        }
     }
 
     useEffect(() => {
@@ -118,9 +146,16 @@ export default function CustomerInfoForm() {
                             />
                         </div>
                         <div className="p-5">
-                            <button className="btn btn-danger float-left">Delete Customer</button>
-                            <button className="btn btn-light float-right  mx-3">Cancel</button>
-                            <button className="btn btn-success float-right  mx-3">Update and Order</button>
+                            <button className="btn btn-danger float-left" onClick={() => {
+                                if(customer && customer.id) {
+                                    deleteCustomer(customer);
+                                }
+                            }}>Delete Customer</button>
+                            <button className="btn btn-light float-right  mx-3" onClick={() => {
+                                setCustomer(null);
+                                history.push('/mainMenu');
+                            }}>Cancel</button>
+                            <button className="btn btn-success float-right  mx-3" onClick={goToOrder}>{customer&&customer.id?"Update and Order" : "Save and Order"}</button>
                         </div>
                     </div>
                 </div>
