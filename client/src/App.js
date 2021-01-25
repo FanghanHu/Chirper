@@ -6,6 +6,7 @@ import MainMenu from "./components/MainMenu";
 import OrderPage from "./components/OrderPage";
 import RecallPage from "./components/RecallPage";
 import TableSelection from "./components/TableSelection";
+import PaymentPage from "./components/PaymentPage";
 import { UserProvider } from "./Contexts/user-context";
 import { TableProvider } from "./Contexts/table-context";
 import { OrderProvider } from "./Contexts/order-context";
@@ -40,6 +41,9 @@ function App() {
                 </Route>
                 <Route path="/orderpage" exact>
                   <OrderPage />
+                </Route>
+                <Route path="/payment" exact>
+                  <PaymentPage />
                 </Route>
               </Router>
             </CustomerProvider>
