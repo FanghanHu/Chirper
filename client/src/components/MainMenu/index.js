@@ -15,6 +15,9 @@ function MainMenu() {
                     <button className="btn button" onClick={() => {history.push("/recall")}}><i className="fas fa-search fa-10x"></i><h4>Recall Order</h4></button>
                 </div>
             </div>
+            <div className="container logout">
+                <button className="btn logoutBtn"><h4>Logout</h4></button>
+            </div>
         </>
     );
 };
