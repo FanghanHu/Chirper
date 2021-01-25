@@ -28,7 +28,7 @@ export default function CustomerInfoForm() {
 
     const deleteCustomer = function(customer) {
         axios.delete('/api/customer/delete/' + customer.id).then(res => {
-            setCustomer(null);
+            setCustomer({...DEFAULT_CUSTOMER});
             getAllCustomers();
         })
     }
