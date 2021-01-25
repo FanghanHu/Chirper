@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import Axios from "axios";
 import InputWithIcon from "../../InputWithIcon";
+import {useSetUser} from "../../../Contexts/user-context"
 
 function Keypad() {
     const [accesscode, setAccesscodeState] = useState("");
+    const [message, setMessage] = useState("");
+    const setUser = useSetUser();
 
     const login =() => {
         Axios({
@@ -15,12 +18,17 @@ function Keypad() {
             url: "/api/login/accesscode",
         })
         .then(res => {
-            console.log(res);
-        })
+            setUser(res.data);
+        }).catch(err => {
+            setUser(null);
+            setAccesscodeState("");
+            setMessage(err.response.data);
+        });
     }
 
     return (
         <div>
+            {message?<div className="text-danger text-center m-1">{message}</div>:""}
             <div className="input-group input-group-lg">
                 <InputWithIcon 
                     label={<i className="fas fa-user"></i>} 
