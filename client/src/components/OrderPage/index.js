@@ -1,11 +1,18 @@
 import React, { Component } from "react";
 import axios from "axios";
+import ReceiptPreview from '../ReceiptPreview';
 
 class OrderPage extends Component {
     constructor() {
         super();
         this.state = {
-            order: null,
+            //TODO: pass in the order creator, and table information, and customer info
+            order: {
+                creatorId:1,
+                Tables:[],
+                Customers:[],
+                OrderItems:[]
+            },
             server: null,
             menus: [{Items: []},{Items: []}]
         }
@@ -13,8 +20,51 @@ class OrderPage extends Component {
         this.loadMenus();
     }
 
-    orderItem = async (item) => {
-        //TODO:
+    /**
+     * order an item, changes made with this method must be saved with "saveOrder()" before it will effect server side data.
+     */
+    orderItem = (item) => {
+        //add the item to orderItem list
+        this.setState({
+            order: {
+                ...this.state.order,
+                OrderItems: [...this.state.order.OrderItems, {...item, status: "NEW"}]
+            }
+        })
+    }
+
+    /**
+     * send the current order to the server.
+     */
+    saveOrder = async () => {
+        const order = this.state.order;
+        if(order) {
+            let orderId = order.id;
+
+            //create a new order if the current order doesn't exist
+            if(!orderId) {
+                //TODO: creatorId
+                const result = await axios.post("/api/order/create/", {
+                        creatorId: 1
+                });
+                orderId = result.data.id;
+            }
+            
+            //find all items taht's newly ordered
+            const newItems = order.OrderItems.filter(item => item.status === "NEW");
+
+            //order new items through the API
+            //TODO: serverId
+            const result = await axios.post("/api/order/orderItem/", {
+                    orderId,
+                    items: newItems,
+                    serverId: 1
+            });
+
+            //TODO: allow modification of existing items
+
+            this.setState({order: result.data});
+        }
     }
     
     loadMenus = async () => {
@@ -26,10 +76,17 @@ class OrderPage extends Component {
         this.setState({menus: result.data});
     }
 
+    placeOrderAndExit = async () => {
+        await this.saveOrder();
+
+        //TODO: exit the page
+    }
+
     render() {
         return (
-            <div className="container-fulid h-100">
-                <div className="row w-75 h-75 mx-auto my-5">
+            <div className="container-fulid h-100 pt-5">
+                <div></div>
+                <div className="row w-75 h-75 mx-auto">
                     <div className="col-3">
                         <div className="card h-100">
                             <div className="card-body bg-light">
@@ -53,7 +110,12 @@ class OrderPage extends Component {
                         </div>
                     </div>
                     <div className="col-3">
-                        3
+                            <ReceiptPreview order={this.state.order} />
+                            <div className="d-flex justify-content-around flex-wrap mt-5">
+                                <button className="btn btn-success m-1" style={{width:"8em"}} onClick={this.saveOrder}>Place Order</button>
+                                <button className="btn btn-primary m-1" style={{width:"8em"}}>Payment</button>
+                                <button className="btn btn-danger m-1" style={{width:"8em"}}>Exit</button>
+                            </div>
                     </div>
                 </div>
             </div>
