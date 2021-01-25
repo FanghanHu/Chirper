@@ -1,49 +1,64 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import axios from "axios";
+import { useSetTable, useTable } from "../../Contexts/table-context";
+import {useHistory} from 'react-router-dom';
 
 function TableSelection() {
 
     const [tables, setTables] = useState([]);
-    const [selectedTable, setSelected] = useState(null); 
-    
+
     axios.get("/api/table/getAll").then(res => {
         setTables(res.data)
     })
 
-    return(
+    const setSelectedTable = useSetTable();
+    const selectedTable = useTable();
+    const history = useHistory();
+
+    return (
         <>
-    <div className="card m-5" style={{height: "500px"}}>
-        <div className="card-header">
-            Table Map
-        </div>
-        <div className="card-body" style={{position: "relative"}}>
-        {
-            tables.map(table => {
-
-                let buttonClass = "btn btn-light"
-                if (selectedTable) 
-                {
-                    if (table.id === selectedTable.id) 
+            <div className="card m-5" style={{ height: "500px" }}>
+                <div className="card-header">
+                    Table Map
+                </div>
+                <div className="card-body" style={{ position: "relative" }}>
                     {
-                        buttonClass = "btn btn-success"
+                        tables.map(table => {
+                            let buttonClass = "btn btn-light"
+                            if (selectedTable) {
+                                if (table.id === selectedTable.id) {
+                                    buttonClass = "btn btn-success"
+                                }
+                            }
+                            return (
+                                <button
+                                    key={table.id}
+                                    onClick={() => {
+                                        setSelectedTable(table);
+                                    }}
+                                    style={{ top: table.y, left: table.x, position: "absolute" }}
+                                    className={buttonClass}>
+
+                                    <i className="fas fa-utensils fa-3x"></i>
+                                    <h3>{table.tableName}</h3>
+                                </button>
+                            )
+                        })
                     }
-                }
-                return (
-                    <button onClick={()=>{setSelected(table)}} style={{top: table.y, left: table.x, position: "absolute"}} className={buttonClass}><i className="fas fa-utensils fa-3x"></i><h3>{table.tableName}</h3></button>
-                )
-            })
-        }
-        </div>
-    </div>
-    <div className="container text-right Table">
-    <button className="btn btn-success" style={{position: "relative", right:"25px"}}>Order</button>
-    <button className="btn btn-danger" style={{position: "relative", left:"25px"}}>Exit</button>
-    </div>
+                </div>
+            </div>
+            <div className="container text-right Table">
+                <button className="btn btn-success" onClick={() => {
+                    if(selectedTable) {
+                        history.push('orderpage');
+                    }
+                }} style={{ position: "relative", right: "25px" }}>Order</button>
 
 
-
-
-
+                <button className="btn btn-danger" onClick={() => {
+                    history.push('/mainMenu');
+                }} style={{ position: "relative", left: "25px" }}>Exit</button>
+            </div>
         </>
     )
 }
