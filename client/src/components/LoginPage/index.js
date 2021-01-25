@@ -2,14 +2,19 @@ import React, { Component } from "react";
 import Keypad from "./Keypad";
 import UserName from "./UserName";
 import Password from "./Password";
-
+import { UserContext } from "../../Contexts/user-context";
+import { Redirect } from "react-router-dom";
 
 class LoginPage extends Component {
+    static contextType = UserContext;
     render() {
+        if(this.context) {
+            return <Redirect to="/mainMenu"/>;
+        }
+
         return (
             <>
                 <div className="container">
-
                     <div className="d-flex flex-column justify-content-center vh-100">
                         <div>
                             <div className="card mx-auto" style={{width: "350px"}}>
@@ -37,10 +42,6 @@ class LoginPage extends Component {
             </>
         )
     }
-
-
-
-
 }
 
 export default LoginPage;

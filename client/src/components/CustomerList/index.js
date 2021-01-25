@@ -1,5 +1,4 @@
 import React, {Component}  from "react";
-import InputWithIcon from "../InputWithIcon";
 
 class CustomerList extends Component {
     render() {
