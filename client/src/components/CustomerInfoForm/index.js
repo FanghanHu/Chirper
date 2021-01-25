@@ -12,7 +12,7 @@ class CustomerInfoForm extends Component {
     }
 
     getAllCustomers = () => {
-        const customers = axios.get("/api/customer/getAll/").then(res => {
+        axios.get("/api/customer/getAll/").then(res => {
             this.setState({ customers: res.data });
         })
     }
