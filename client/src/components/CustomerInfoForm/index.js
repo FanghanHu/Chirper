@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useCustomer, useSetCustomer } from "../../Contexts/customer-context";
+import { DEFAULT_CUSTOMER, useCustomer, useSetCustomer } from "../../Contexts/customer-context";
 import axios from "axios";
 import CustomerList from "../CustomerList";
 import InputWithIcon from "../InputWithIcon";
@@ -78,7 +78,7 @@ export default function CustomerInfoForm() {
                                         label={<i className='fa fa-user' />}
                                         inputProps={{
                                             placeholder: "Name",
-                                            value: customer ? customer.fullName : "",
+                                            value: customer.fullName,
                                             onChange: (e) => { setCustomer({ ...customer, fullName: e.target.value }) }
                                         }}
                                     />
@@ -88,7 +88,7 @@ export default function CustomerInfoForm() {
                                         label={<i className='fa fa-phone' />}
                                         inputProps={{
                                             placeholder: "Phone Number",
-                                            value: customer ? customer.phone : "",
+                                            value: customer.phone,
                                             onChange: (e) => { setCustomer({ ...customer, phone: e.target.value }) }
                                         }}
                                     />
@@ -100,7 +100,7 @@ export default function CustomerInfoForm() {
                                         label={<i className='fa fa-home' />}
                                         inputProps={{
                                             placeholder: "Address",
-                                            value: customer ? customer.address : "",
+                                            value: customer.address,
                                             onChange: (e) => { setCustomer({ ...customer, address: e.target.value }) }
                                         }}
                                     />
@@ -112,7 +112,7 @@ export default function CustomerInfoForm() {
                                         label={<i className='fas fa-city' />}
                                         inputProps={{
                                             placeholder: "City",
-                                            value: customer ? customer.city : "",
+                                            value: customer.city,
                                             onChange: (e) => { setCustomer({ ...customer, city: e.target.value }) }
                                         }}
                                     />
@@ -122,7 +122,7 @@ export default function CustomerInfoForm() {
                                         label={<i className='fas fa-city' />}
                                         inputProps={{
                                             placeholder: "State",
-                                            value: customer ? customer.state : "",
+                                            value: customer.state,
                                             onChange: (e) => { setCustomer({ ...customer, state: e.target.value }) }
                                         }}
                                     />
@@ -132,7 +132,7 @@ export default function CustomerInfoForm() {
                                         label={<i className='fas fa-city' />}
                                         inputProps={{
                                             placeholder: "Zip",
-                                            value: customer ? customer.zip : "",
+                                            value: customer.zip,
                                             onChange: (e) => { setCustomer({ ...customer, zip: e.target.value }) }
                                         }}
                                     />
@@ -152,7 +152,7 @@ export default function CustomerInfoForm() {
                                 }
                             }}>Delete Customer</button>
                             <button className="btn btn-light float-right  mx-3" onClick={() => {
-                                setCustomer(null);
+                                setCustomer({...DEFAULT_CUSTOMER});
                                 history.push('/mainMenu');
                             }}>Cancel</button>
                             <button className="btn btn-success float-right  mx-3" onClick={goToOrder}>{customer&&customer.id?"Update and Order" : "Save and Order"}</button>

@@ -3,7 +3,7 @@ import axios from "axios";
 import {useOrder, useSetOrder} from '../../Contexts/order-context'
 import { useSetTable, useTable } from "../../Contexts/table-context";
 import { useUser } from "../../Contexts/user-context";
-import { useCustomer, useSetCustomer } from "../../Contexts/customer-context";
+import { DEFAULT_CUSTOMER, useCustomer, useSetCustomer } from "../../Contexts/customer-context";
 import { useHistory } from "react-router-dom";
 import ReceiptPreview from '../ReceiptPreview';
 
@@ -126,7 +126,7 @@ export default function(props) {
                                 history.push('/payment');
                             }}>Payment</button>
                             <button className="btn btn-danger m-1" style={{width:"8em"}} onClick={() => {
-                                setCustomer(null);
+                                setCustomer({...DEFAULT_CUSTOMER});
                                 setTable(null);
                                 setOrder(null);
                                 history.push('/mainmenu');
