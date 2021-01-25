@@ -67,6 +67,8 @@ module.exports = {
      */
     createOrder: async function (req, res) {
         const creatorId = req.body.creatorId;
+        const Tables = req.body.Tables;
+        const Customers = req.body.Customers;
 
         const t = await db.sequelize.transaction();
 
@@ -84,6 +86,14 @@ module.exports = {
                 include: ["creator"],
                 transaction: t
             });
+
+            for(let table of Tables) {
+                await order.addTable(table.id, {transaction: t});
+            }
+
+            for(let Customer of Customers) {
+                await order.addCustomer(Customer.id, {transaction: t});
+            }
 
             await db.AppConfig.update({
                 itemValue: orderNumber.itemValue + 1
