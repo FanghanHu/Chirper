@@ -11,7 +11,7 @@
     padding: 30px;
     
 }
-.button:hover, .logoutBtn:hover {
+.button:hover {
     background-color: black;
     color: white;
 }
@@ -26,4 +26,8 @@
 .logoutBtn {
     border: solid black;
     border-radius: 12px;
+}
+.logoutBtn:hover {
+    background-color: red;
+    color: white;
 }
