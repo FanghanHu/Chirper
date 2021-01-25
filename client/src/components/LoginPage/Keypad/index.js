@@ -14,7 +14,9 @@ function Keypad() {
             withCredentials: true,
             url: "/api/login/accesscode",
         })
-        .then((res) => console.log(res))
+        .then(res => {
+            console.log(res);
+        })
     }
 
     return (
