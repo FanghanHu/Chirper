@@ -25,13 +25,12 @@ export default function(props) {
     }
 
     //load the menus
-    const loadMenus = async function() {
-        let result = await axios.get("/api/menu/getAll/", {
+    const loadMenus = function() {
+        return axios.get("/api/menu/getAll/", {
             params: {
                 eagarLoad: "true"
             }
         });
-        setMenus(result.data);
     }
 
     const saveOrder = async function() {
@@ -75,20 +74,32 @@ export default function(props) {
     }
 
     useEffect(() => {
-        loadMenus();
+        let mounted = true;
+        loadMenus().then((result) => {
+            if(mounted) {
+                setMenus(result.data);
+            }
+        });
 
         //create default order object if none exist
         if(!order) {
             if(!user) {
                 history.push('/');
             } else {
+                if(mounted) {
+                    
                 setOrder({
                     creatorId: user.id,
                     Tables:table?[table]:[],
                     Customers:customer?[customer]:[],
                     OrderItems:[]
                 });
+                }
             }
+        }
+
+        return () => {
+            mounted = false;
         }
     });
 
