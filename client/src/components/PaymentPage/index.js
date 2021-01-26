@@ -59,7 +59,7 @@ function PaymentPage() {
                 <div className="d-flex flex-column justify-content-center text-center" style={{ width: "23em" }}>
                     <div className="h5">Amount Due: {billTotal.toFixed(2)}</div>
                     <div className="h5">Paid Amount: {paidAmount.toFixed(2)}</div>
-                    <div className="h4 text-success">Amount Due: {Math.max(billTotal - paidAmount, 0)}</div>
+                    <div className="h4 text-success">Amount Due: {Math.max((billTotal - paidAmount).toFixed(2), 0)}</div>
                     <div className={"h3 " + (order.status==="PAID"?"text-success":"text-danger") }>Bill Status: {order.status}</div>
                 </div>
 
