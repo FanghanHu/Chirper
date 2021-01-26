@@ -50,7 +50,17 @@ function RecallPage() {
                         <label htmlFor="order" className="mr-2">Order Number: </label>
                         <input type="text" value={orderNumber} onChange={(e) => {setOrderNumber(e.target.value)}}></input>
                         <button className="btn btn-success m-1" onClick={() => {
-                            
+                            axios.get('/api/order/getWithOrderNumber', {
+                                params: {
+                                    orderNumber,
+                                    eagarLoad: true
+                                }
+                            }).then(res => {
+                                setOrder(res.data);
+                                history.push('/orderPage');
+                            }).catch(e => {
+                                setOrder(null);
+                            })
                         }}>Go</button>
                     </div>
                     <table className="table table-striped">
