@@ -41,6 +41,11 @@ module.exports = {
     /**dele customer */
     deleteCustomer: async function (req, res) {
         const customerId = req.params.customerId;
+
+        if (!await db.Customer.findOne({ where: { id: customerId } })) {
+            return res.status(404).send("cannot find customer");
+        }
+
         const result = await db.Customer.destroy({where: {id: customerId}});
         res.json(result)
                 
@@ -48,7 +53,13 @@ module.exports = {
 /**customer update */
     updateCustomer: async function (req, res){
         const customerId = req.body.customerId;
-        const result = await db.Customer.update({...req.body},{where:{id:customerId}})
+
+        if (!await db.Customer.findOne({ where: { id: customerId } })) {
+            return res.status(404).send("cannot find customer");
+        }
+
+        await db.Customer.update({...req.body},{where:{id:customerId}})
+        const result = await db.Customer.findOne({ where: { id: customerId } });
         res.json(result)
     },
 

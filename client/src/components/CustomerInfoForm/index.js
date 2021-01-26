@@ -21,9 +21,7 @@ export default function CustomerInfoForm() {
     }
 
     const getAllCustomers = function () {
-        axios.get("/api/customer/getAll/").then(res => {
-            setCustomers(res.data);
-        })
+        return axios.get("/api/customer/getAll/");
     }
 
     const deleteCustomer = function(customer) {
@@ -46,7 +44,16 @@ export default function CustomerInfoForm() {
     }
 
     useEffect(() => {
-        getAllCustomers();
+        let mounted = true;
+        getAllCustomers().then(res => {
+            if(mounted) {
+                setCustomers(res.data);
+            }
+        });
+
+        return () => {
+            mounted = false;
+        }
     })
 
     return (
