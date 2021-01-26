@@ -32,11 +32,6 @@ Techologies:
     - React
     - Heroku 
 ​
-# Application Screenshots
-![screenshot1](client/assets/src/assets/images/c1.png)
-![screenshot2](client/assets/src/assets/images/c2.png)​
-
-
 ## Usage 
 [![Watch the video](https://github.com/dhbhernandez/Chirper/blob/main/client/src/assets/Images/c1.png)](https://youtu.be/X9Xd8J7cLOQ)
 ​
