@@ -73,6 +73,7 @@ function RecallPage() {
                                 <th scope="col">Table</th>
                                 <th scope="col">Customer</th>
                                 <th scope="col">Server</th>
+                                <th scope="col">Status</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -85,6 +86,7 @@ function RecallPage() {
                                         <td>{el.Tables[0] ? el.Tables[0].tableName : ""}</td>
                                         <td>{el.Customers[0] ? el.Customers[0].fullName : ""}</td>
                                         <td>{el.creator.fullName}</td>
+                                        <td className={(el.status === "SETTLED"?"text-success":"text-warning")}>{el.status}</td>
                                     </tr>
                                 );
                             })}
