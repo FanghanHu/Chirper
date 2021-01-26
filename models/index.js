@@ -9,6 +9,13 @@ const config = require(__dirname + '/../config/config.json')[env];
 const db = {};
 require("dotenv").config();
 
+config.pool = {
+  max: 10,
+  min: 0,
+  acquire: 30000,
+  idle: 10000
+}
+
 let sequelize;
 if (config.use_env_variable) {
   sequelize = new Sequelize(process.env[config.use_env_variable], config);
