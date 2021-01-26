@@ -67,6 +67,10 @@ export default function CustomerInfoForm() {
                                     }}
                                 />
                                 <CustomerList customers={customers} filter={filter}/>
+                                <hr/>
+                                <button className="btn btn-primary mr-3 float-right" onClick={() => {
+                                    setCustomer({...DEFAULT_CUSTOMER});
+                                }}>New Customer</button>
                             </div>
                         </div>
                     </div>
