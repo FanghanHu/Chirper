@@ -8,6 +8,7 @@ import {useOrder, useSetOrder} from '../../Contexts/order-context'
 
 function RecallPage() {
     const [orders, setOrders] = useState([]);
+    const [orderNumber, setOrderNumber] = useState("");
 
     const order = useOrder();
     const setOrder = useSetOrder();
@@ -47,8 +48,10 @@ function RecallPage() {
                 <div className="card-body">
                     <div className="order-form" style={{ textAlign: "right" }}>
                         <label htmlFor="order" className="mr-2">Order Number: </label>
-                        <input type="text" id="order"></input>
-                        <button className="btn btn-success m-1">Go</button>
+                        <input type="text" value={orderNumber} onChange={(e) => {setOrderNumber(e.target.value)}}></input>
+                        <button className="btn btn-success m-1" onClick={() => {
+                            
+                        }}>Go</button>
                     </div>
                     <table className="table table-striped">
                         <thead>

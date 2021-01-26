@@ -51,6 +51,24 @@ module.exports = {
         return res.json(order);
     },
 
+    getOrderWithOrderNumber: async function (req, res) {
+        const orderNumber = req.query.orderNumber;
+        const eagarLoad = req.query.eagarLoad;
+
+        let order = undefined;
+        if (eagarLoad === "true") {
+            order = await db.Order.findOne({ where: { orderNumber }, include: { all: true, nested: true } });
+        } else {
+            order = await db.Order.findOne({ where: { orderNumber } });
+        }
+
+        if (!order) {
+            return res.status(404).send("cannot find order");
+        }
+
+        return res.json(order);
+    },
+
     getAllOrders: async function (req, res) {
         const eagarLoad = req.query.eagarLoad;
 

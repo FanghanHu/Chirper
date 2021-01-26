@@ -4,6 +4,7 @@ const orderController = require("../../controllers/orderController");
 
 // Matches with "/api/books"
 router.route("/get/:orderId").get(orderController.getOrder);
+router.route('/getWithOrderNumber').get(orderController.getOrderWithOrderNumber);
 router.route("/getall").get(orderController.getAllOrders);
 router.route("/create").post(orderController.createOrder);
 router.route("/orderItem").post(orderController.orderItem);
