@@ -1,7 +1,15 @@
 import React from "react";
+import { Redirect } from "react-router-dom";
+import { useUser } from "../../Contexts/user-context";
 import ReceiptPreview from "../ReceiptPreview";
 
 function PaymentPage() {
+    //check if user is logged in
+    const user = useUser();
+    if(!user) {
+        return <Redirect to="/"/>
+    }
+
     return(
     <>    
     <div className="card m-5" style={{width: "23rem"}}>

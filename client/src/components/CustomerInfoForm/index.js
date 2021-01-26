@@ -4,7 +4,7 @@ import axios from "axios";
 import CustomerList from "../CustomerList";
 import InputWithIcon from "../InputWithIcon";
 import TextAreaWithIcon from "../TextAreaWithIcon";
-import {useHistory} from "react-router-dom";
+import {Redirect, useHistory} from "react-router-dom";
 import {useUser} from "../../Contexts/user-context";
 
 export default function CustomerInfoForm() {
@@ -12,12 +12,25 @@ export default function CustomerInfoForm() {
     const [customers, setCustomers] = useState([]);
     const customer = useCustomer();
     const setCustomer = useSetCustomer();
-    
+
+    useEffect(() => {
+        let mounted = true;
+        getAllCustomers().then(res => {
+            if(mounted) {
+                setCustomers(res.data);
+            }
+        });
+
+        return () => {
+            mounted = false;
+        }
+    })
+
     //check if user is logged in
     const user = useUser();
     const history = useHistory();
     if(!user) {
-        history.push('/');
+        return <Redirect to="/"/>
     }
 
     const getAllCustomers = function () {
@@ -42,19 +55,6 @@ export default function CustomerInfoForm() {
             history.push('/orderPage');
         }
     }
-
-    useEffect(() => {
-        let mounted = true;
-        getAllCustomers().then(res => {
-            if(mounted) {
-                setCustomers(res.data);
-            }
-        });
-
-        return () => {
-            mounted = false;
-        }
-    })
 
     return (
         <>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-import {useHistory} from "react-router-dom";
+import {Redirect, useHistory} from "react-router-dom";
 import {useUser} from "../../Contexts/user-context";
 import {useOrder, useSetOrder} from '../../Contexts/order-context'
 
@@ -12,13 +12,6 @@ function RecallPage() {
 
     const order = useOrder();
     const setOrder = useSetOrder();
-
-    //check if user is logged in
-    const user = useUser();
-    const history = useHistory();
-    if(!user) {
-        history.push('/');
-    }
 
     //Load orders
     useEffect(() => {
@@ -38,6 +31,16 @@ function RecallPage() {
             mounted = false;
         }
     })
+
+    //check if user is logged in
+    //check if user is logged in
+    const user = useUser();
+    const history = useHistory();
+    if(!user) {
+        return <Redirect to="/"/>
+    }
+
+    
 
     return (
         <div className="d-flex flex-column justify-content-center h-100">

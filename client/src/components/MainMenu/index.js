@@ -1,14 +1,15 @@
 import React from "react";
-import { useHistory } from 'react-router-dom'
-import { useUser } from "../../Contexts/user-context";
+import { Redirect, useHistory } from 'react-router-dom'
+import { useSetUser, useUser } from "../../Contexts/user-context";
 import "./style.css";
 
 function MainMenu() {
     //check if user is logged in
     const user = useUser();
+    const setUser = useSetUser();
     const history = useHistory();
     if(!user) {
-        history.push('/');
+        return <Redirect to="/"/>
     }
 
     return (
@@ -22,7 +23,9 @@ function MainMenu() {
                         <button className="btn button" onClick={() => { history.push("/recall") }}><i className="fas fa-search fa-10x"></i><h4>Recall Order</h4></button>
                     </div>
                     <div className="w-100 mt-5 text-center">
-                        <button className="btn logoutBtn"><h4>Logout</h4></button>
+                        <button className="btn logoutBtn" onClick={() => {
+                            setUser(null);
+                        }}><h4>Logout</h4></button>
                     </div>
                 </div>
                 
