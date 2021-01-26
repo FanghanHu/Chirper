@@ -11,8 +11,20 @@ export function useSetCustomer() {
     return useContext(SetCustomerContext);
 }
 
+/**
+ * use this to set the value back to default
+ */
+export const DEFAULT_CUSTOMER = {
+    fullName:"",
+    phone:"",
+    address:"",
+    city:"",
+    state:"",
+    zip:""
+};
+
 export function CustomerProvider({children}) {
-    const [customer, setCustomer] = useState(null);
+    const [customer, setCustomer] = useState({...DEFAULT_CUSTOMER});
 
     return (
         <CustomerContext.Provider value={customer}>

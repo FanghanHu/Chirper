@@ -3,30 +3,34 @@ import axios from "axios";
 import {useOrder, useSetOrder} from '../../Contexts/order-context'
 import { useSetTable, useTable } from "../../Contexts/table-context";
 import { useUser } from "../../Contexts/user-context";
-import { useCustomer, useSetCustomer } from "../../Contexts/customer-context";
-import { useHistory } from "react-router-dom";
+import { DEFAULT_CUSTOMER, useCustomer, useSetCustomer } from "../../Contexts/customer-context";
+import { Redirect, useHistory } from "react-router-dom";
 import ReceiptPreview from '../ReceiptPreview';
 
 
 export default function(props) {
-    const history = useHistory();
     const [menus, setMenus] = useState([{Items: []},{Items: []}]);
     const order = useOrder();
     const setOrder = useSetOrder();
     const table = useTable();
     const setTable = useSetTable();
-    const user = useUser();
     const customer = useCustomer();
     const setCustomer = useSetCustomer();
 
+    //check if user is logged in
+    const user = useUser();
+    const history = useHistory();
+    if(!user) {
+        return <Redirect to="/"/>
+    }
+
     //load the menus
-    const loadMenus = async function() {
-        let result = await axios.get("/api/menu/getAll/", {
+    const loadMenus = function() {
+        return axios.get("/api/menu/getAll/", {
             params: {
                 eagarLoad: "true"
             }
         });
-        setMenus(result.data);
     }
 
     const saveOrder = async function() {
@@ -70,17 +74,32 @@ export default function(props) {
     }
 
     useEffect(() => {
-        loadMenus();
+        let mounted = true;
+        loadMenus().then((result) => {
+            if(mounted) {
+                setMenus(result.data);
+            }
+        });
 
         //create default order object if none exist
         if(!order) {
-            console.log(table);
-            setOrder({
-                creatorId: user.id,
-                Tables:table?[table]:[],
-                Customers:customer?[customer]:[],
-                OrderItems:[]
-            });
+            if(!user) {
+                history.push('/');
+            } else {
+                if(mounted) {
+                    
+                setOrder({
+                    creatorId: user.id,
+                    Tables:table?[table]:[],
+                    Customers:customer?[customer]:[],
+                    OrderItems:[]
+                });
+                }
+            }
+        }
+
+        return () => {
+            mounted = false;
         }
     });
 
@@ -114,11 +133,12 @@ export default function(props) {
                         <ReceiptPreview order={order?order:{OrderItems:[]}} />
                         <div className="d-flex justify-content-around flex-wrap mt-5">
                             <button className="btn btn-success m-1" style={{width:"8em"}} onClick={saveOrder}>Place Order</button>
-                            <button className="btn btn-primary m-1" style={{width:"8em"}} onClick={() => {
+                            <button className="btn btn-primary m-1" style={{width:"8em"}} onClick={async () => {
+                                await saveOrder();
                                 history.push('/payment');
                             }}>Payment</button>
                             <button className="btn btn-danger m-1" style={{width:"8em"}} onClick={() => {
-                                setCustomer(null);
+                                setCustomer({...DEFAULT_CUSTOMER});
                                 setTable(null);
                                 setOrder(null);
                                 history.push('/mainmenu');
