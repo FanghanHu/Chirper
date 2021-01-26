@@ -1,9 +1,15 @@
 import React from "react";
 import { useHistory } from 'react-router-dom'
+import { useUser } from "../../Contexts/user-context";
 import "./style.css";
 
 function MainMenu() {
+    //check if user is logged in
+    const user = useUser();
     const history = useHistory();
+    if(!user) {
+        history.push('/');
+    }
 
     return (
         <>
