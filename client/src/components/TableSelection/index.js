@@ -32,7 +32,7 @@ function TableSelection() {
     }
 
     return (
-        <>
+        <div className="container">
             <div className="card m-5" style={{ height: "500px" }}>
                 <div className="card-header">
                     Table Map
@@ -63,20 +63,20 @@ function TableSelection() {
                     }
                 </div>
             </div>
-            <div className="container text-right Table">
-                <button className="btn btn-success" onClick={() => {
+            <div className="float-right mr-5">
+                <button className="btn btn-lg btn-success" onClick={() => {
                     if(selectedTable) {
                         history.push('orderpage');
                     }
                 }} style={{ position: "relative", right: "25px" }}>Order</button>
 
 
-                <button className="btn btn-danger" onClick={() => {
+                <button className="btn btn-lg btn-danger" onClick={() => {
                     setSelectedTable(null);
                     history.push('/mainMenu');
                 }} style={{ position: "relative", left: "25px" }}>Exit</button>
             </div>
-        </>
+        </div>
     )
 }
 
