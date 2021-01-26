@@ -10,7 +10,8 @@
 * [Questions](#Questions)
 ​
 ## Description 
-Chirper App
+Chirper is an app that will help you manage your restaurant. You can manage orders to dine in, to go, tables and payments.
+
 ​
 ## Instructions
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://mighty-gorge-61160.herokuapp.com/)
@@ -33,17 +34,19 @@ Techologies:
     - Heroku 
 ​
 ## Usage 
-[![Watch the video](https://github.com/dhbhernandez/Chirper/blob/main/client/src/assets/Images/c1.png)](https://youtu.be/X9Xd8J7cLOQ)
+[![Watch the video](https://github.com/dhbhernandez/Chirper/blob/main/client/src/assets/Images/c1.gif)](https://mighty-gorge-61160.herokuapp.com/)
 ​
-![screenshot2](https://github.com/dhbhernandez/Chirper/blob/main/client/src/assets/Images/c2.png)
 ## License
     MIT
 ​
 ## Contribution Guideline
-Fanghan Hu
-Alyssa Hollowell
-Kennedy Oginga
-Diego Hernandez
+*Fanghan Hu
+
+*Alyssa Hollowell
+
+*Kennedy Oginga
+
+*Diego Hernandez
 ## Testing Instructions
 No
 ## Questions
