@@ -40,13 +40,13 @@ Techologies:
     MIT
 ​
 ## Contribution Guideline
-*Fanghan Hu
+* Fanghan Hu
 
-*Alyssa Hollowell
+* Alyssa Hollowell
 
-*Kennedy Oginga
+* Kennedy Oginga
 
-*Diego Hernandez
+* Diego Hernandez
 ## Testing Instructions
 No
 ## Questions
