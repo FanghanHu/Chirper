@@ -133,7 +133,8 @@ export default function(props) {
                         <ReceiptPreview order={order?order:{OrderItems:[]}} />
                         <div className="d-flex justify-content-around flex-wrap mt-5">
                             <button className="btn btn-success m-1" style={{width:"8em"}} onClick={saveOrder}>Place Order</button>
-                            <button className="btn btn-primary m-1" style={{width:"8em"}} onClick={() => {
+                            <button className="btn btn-primary m-1" style={{width:"8em"}} onClick={async () => {
+                                await saveOrder();
                                 history.push('/payment');
                             }}>Payment</button>
                             <button className="btn btn-danger m-1" style={{width:"8em"}} onClick={() => {
