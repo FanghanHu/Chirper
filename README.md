@@ -1,4 +1,4 @@
-# Chirp App
+# Chirper App
 ![APM](https://img.shields.io/apm/l/pack)
 ​
 ## Table of Contents
@@ -10,7 +10,7 @@
 * [Questions](#Questions)
 ​
 ## Description 
-Chrip 
+Chirper App
 ​
 ## Instructions
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://mighty-gorge-61160.herokuapp.com/)
@@ -30,7 +30,7 @@ Techologies:
     - GitHUb Repository
     - npm packages
     - React
-    - 
+    - Heroku 
 ​
 # Application Screenshots
 ![screenshot1](client/assets/src/assets/images/c1.png)
@@ -38,9 +38,9 @@ Techologies:
 
 
 ## Usage 
-[![Watch the video](https://imgur.com/0pkx4pL.png)](https://youtu.be/X9Xd8J7cLOQ)
+[![Watch the video](https://github.com/dhbhernandez/Chirper/blob/main/client/src/assets/Images/c1.png)](https://youtu.be/X9Xd8J7cLOQ)
 ​
-![screenshot2](client/assets/src/assets/images/c2.png)
+![screenshot2](https://github.com/dhbhernandez/Chirper/blob/main/client/src/assets/Images/c2.png)
 ## License
     MIT
 ​
@@ -54,17 +54,17 @@ No
 ## Questions
 Any questions or suggestions reach:
 * Fanghan Hu
-* Via [Github] https://github.com/FanghanHu
-* Via Email: Fanghan.Hu@gmail.com
+    - Via [Github] https://github.com/FanghanHu
+    - Via Email: Fanghan.Hu@gmail.com
 ​
 * Alyssa Hollowell
-* Via [Github] https://github.com/alyssah1
-* Via Email: alyssa.hollowell2@gmail.com
+    - Via [Github] https://github.com/alyssah1
+    - Via Email: alyssa.hollowell2@gmail.com
 ​
 * Kennedy Oginga
-* Via [Github] https://github.com/KenOginga
-* Via Email: kn.oginga@gmail.com
+    - Via [Github] https://github.com/KenOginga
+    - Via Email: kn.oginga@gmail.com
 
 * Diego Hernandez
-* Via [Github] https://github.com/dhbhernandez
-* Via Email: d8328827238@me.com
+    - Via [Github] https://github.com/dhbhernandez
+    - Via Email: d8328827238@me.com
