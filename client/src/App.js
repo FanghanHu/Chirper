@@ -14,7 +14,11 @@ import { CustomerProvider } from "./Contexts/customer-context";
 
 function App() {
   return (
-    <>
+    <div className="container-fluid vh-100" style={{
+      backgroundImage:`url(${process.env.PUBLIC_URL + 'assets/imgs/background.jpg'})`,
+      backgroundSize:"cover",
+      backgroundPosition: "center"
+    }}>
       <UserProvider>
         <TableProvider>
           <OrderProvider>
@@ -50,7 +54,7 @@ function App() {
           </OrderProvider>
         </TableProvider>
       </UserProvider>
-    </>
+    </div>
   );
 }
 
