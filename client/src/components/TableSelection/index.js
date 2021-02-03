@@ -32,7 +32,7 @@ function TableSelection() {
     }
 
     return (
-        <div className="container">
+        <div className="container pt-5">
             <div className="card m-5" style={{ height: "500px" }}>
                 <div className="card-header">
                     Table Map
