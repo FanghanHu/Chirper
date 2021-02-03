@@ -57,17 +57,17 @@ function PaymentPage() {
                     <ReceiptPreview order={order} />
                 </div>
                 <div className="d-flex flex-column justify-content-center text-center" style={{ width: "23em" }}>
-                    <div className="h5">Amount Due: {billTotal.toFixed(2)}</div>
-                    <div className="h5">Paid Amount: {paidAmount.toFixed(2)}</div>
+                    <div className="h5 text-light">Amount Due: {billTotal.toFixed(2)}</div>
+                    <div className="h5 text-light">Paid Amount: {paidAmount.toFixed(2)}</div>
                     <div className="h4 text-success">Amount Due: {Math.max((billTotal - paidAmount).toFixed(2), 0)}</div>
                     <div className={"h3 " + (order.status==="PAID"?"text-success":"text-danger") }>Bill Status: {order.status}</div>
                 </div>
 
-                <div className="card m-5" style={{ width: "40rem" }}>
-                    <div className="card-header" style={{ fontSize: "20px" }}>
+                <div className="card m-5" style={{ width: "40rem",background:"rgba(0,0,0,0.5)"}}>
+                    <div className="card-header text-white" style={{ fontSize: "20px" }}>
                         Add a payment:
                     </div>
-                    <div className="card-body">
+                    <div className="card-body bg-transparent">
                         <div className="row mx-5 text-center" style={{ margin: "20px" }}>
                             <div className="col-4 p-1">
                                 <button className="btn btn-success" style={{width: "6em", height: "4em"}} onClick={()=>{

@@ -33,11 +33,11 @@ function TableSelection() {
 
     return (
         <div className="container pt-5">
-            <div className="card m-5" style={{ height: "500px" }}>
-                <div className="card-header">
+            <div className="card m-5" style={{ height: "500px" ,background:"rgba(0,0,0,0.5)"}}>
+                <div className="card-header text-white">
                     Table Map
                 </div>
-                <div className="card-body" style={{ position: "relative" }}>
+                <div className="card-body bg-transparent" style={{ position: "relative" }}>
                     {
                         tables.map(table => {
                             let buttonClass = "btn btn-light"

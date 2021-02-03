@@ -44,11 +44,11 @@ function RecallPage() {
 
     return (
         <div className="d-flex flex-column justify-content-center h-100">
-            <div className="card mx-auto w-75 h-75">
+            <div className="card mx-auto w-75 h-75 text-white" style={{background:"rgba(0,0,0,0.5)"}}>
                 <div className="card-header">
                     Orders
                 </div>
-                <div className="card-body">
+                <div className="card-body bg-transparent">
                     <div className="order-form" style={{ textAlign: "right" }}>
                         <label htmlFor="order" className="mr-2">Order Number: </label>
                         <input type="text" value={orderNumber} onChange={(e) => { setOrderNumber(e.target.value) }}></input>
@@ -66,7 +66,7 @@ function RecallPage() {
                             })
                         }}>Go</button>
                     </div>
-                    <table className="table table-striped">
+                    <table className="table table-striped text-white">
                         <thead>
                             <tr>
                                 <th scope="col">Order Number</th>

@@ -108,8 +108,8 @@ export default function(props) {
             <div></div>
             <div className="row w-75 h-75 mx-auto">
                 <div className="col-3">
-                    <div className="card h-100">
-                        <div className="card-body bg-light">
+                    <div className="card h-100" style={{background:"rgba(0,0,0,0.5)"}}>
+                        <div className="card-body bg-transparent">
                             {menus[1].Items.map(item => {
                                 return (
                                     <button key={item.id} className="btn btn-primary m-1" onClick={() => { orderItem(item) }}>{item.itemName}</button>
@@ -119,8 +119,8 @@ export default function(props) {
                     </div>
                 </div>
                 <div className="col-6">
-                    <div className="card h-100">
-                        <div className="card-body bg-light">
+                    <div className="card h-100" style={{background:"rgba(0,0,0,0.5)"}}>
+                        <div className="card-body bg-transparent">
                             {menus[0].Items.map(item => {
                                 return (
                                     <button key={item.id} className="btn btn-primary m-1" onClick={() => { orderItem(item) }}>{item.itemName}</button>
