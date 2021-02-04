@@ -14,7 +14,7 @@ Chirper is an app that will help you manage your restaurant. You can manage orde
 
 ​
 ## Instructions
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://mighty-gorge-61160.herokuapp.com/)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://chirperpos.herokuapp.com/)
 ​
 * Log in with your accesscode.
 ​
